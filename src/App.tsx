@@ -1,14 +1,18 @@
 import React from 'react';
-// import logo from './logo.svg';
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 import Labs from "./Labs";
 
 function App() {
   return (
-    <div>
-      <h1>Welcome to Web Dev</h1>
-      <Labs />
-    </div>
+    <HashRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Navigate to="Labs" />} />
+          <Route path="/Labs/*" element={<Labs />} />
+        </Routes>
+      </div>
+    </HashRouter>
   );
 }
 
