@@ -158,7 +158,7 @@ export default function Lab1() {
                 <br />
                 <img id="wd-starship"
                     width="400px"
-                    src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+                    src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg" alt="strarship image"
                 />
                 <br />
                 Loading a local image:
@@ -273,7 +273,7 @@ export default function Lab1() {
             Please
             <a id="wd-lipsum" href="https://www.lipsum.com">click here</a>
             to get dummy text<br />
-            
+
             Please
             <a id="wd-github" href="https://github.com/kevintsao14/kanbas-react-web-app-fa24">click here</a>
             to go to my github code repository<br />
