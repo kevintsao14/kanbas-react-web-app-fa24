@@ -1,7 +1,9 @@
 export default function Lab1() {
     return (
         <div id="wd-lab1">
-            <h2>Lab 1</h2>
+            <h2>Lab 1: Implementing User Interfaces with HTML</h2>
+            <h4><a href="https://docs.google.com/document/d/1O_Vyk-9fNEBVYoEH_oFrhDcDTVJufhmjv3NzXJqwo44/edit#heading=h.nbfs8x9iykbg"> Lab 1 Document</a></h4>
+
             <h3>HTML Examples</h3>
             <div id="wd-h-tag">
                 <h4>Heading Tags</h4>

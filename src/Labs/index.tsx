@@ -10,7 +10,8 @@ export default function Labs() {
 
     return (
         <div>
-            <h1>Cheyun Tsao</h1>
+            <h1>Name: Cheyun Tsao</h1>
+            <h2>Section: 20595</h2>
             <h1>Labs</h1>
             <TOC />
             <Routes>
