@@ -1,5 +1,6 @@
 import Lab1 from "./Lab1";
 import { Route, Routes, Navigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import TOC from "./TOC";
 import Lab2 from "./Lab2";
 import Lab3 from "./Lab3";
@@ -24,6 +25,7 @@ export default function Labs() {
                 <Route path="Lab6" element={<Lab6 />} />
                 
             </Routes>
+            
         </div>
     );
 }
