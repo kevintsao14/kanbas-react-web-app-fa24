@@ -18,10 +18,7 @@
     position: absolute;
     pointer-events: none; 
   }
-  .custom-input-group {
-    max-width: 300px; 
-    width: 100%; 
-  }
+  
   .height-button{
     height: 30px;
   }

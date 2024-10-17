@@ -1,10 +1,30 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link, useParams} from "react-router-dom";
 import "../styles.css";
 
 export default function CoursesNavigation() {
+    const { cid } = useParams();
+    const path = `/Kanbas/Courses/${cid}`;
+    const links = [
+        { to: `${path}/Home`, id: "wd-course-home-link", text: "Home" },
+        { to: `${path}/Modules`, id: "wd-course-modules-link", text: "Modules" },
+        { to: `${path}/Assignments`, id: "wd-course-assignments-link", text: "Assignments" },
+        { to: `${path}/Quizzes`, id: "wd-course-quizzes-link", text: "Quizzes" },
+        { to: `${path}/Grades`, id: "wd-course-grades-link", text: "Grades" },
+        { to: `${path}/People`, id: "wd-course-people-link", text: "People" },
+        { to: `${path}/Piazza`, id: "wd-course-piazza-link", text: "Piazza" },
+        { to: `${path}/Zoom`, id: "wd-course-zoom-link", text: "Zoom" },
+    ];
     return (
         <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
-            <NavLink to="/Kanbas/Courses/1234/Home" id="wd-course-home-link"
+            {
+                links.map(({ to, id, text }) => (
+                    <NavLink key={id} to={to} id={id}
+                        className={({ isActive }) => `list-group-item text-danger ${isActive ? 'active text-black' : ''} border border-0`}>
+                        {text}
+                    </NavLink>
+                ))
+            }
+            {/* <NavLink to="/Kanbas/Courses/1234/Home" id="wd-course-home-link"
                 className={({ isActive }) => `list-group-item text-danger ${isActive ? 'active text-black' : ''} border border-0`}>
                 Home
             </NavLink>
@@ -42,7 +62,7 @@ export default function CoursesNavigation() {
             <NavLink to="/Kanbas/Courses/1234/Zoom" id="wd-course-zoom-link"
                 className={({ isActive }) => `list-group-item text-danger ${isActive ? 'active text-black' : ''} border border-0`}>
                 Zoom
-            </NavLink>
+            </NavLink> */}
         </div>
     );
 }
