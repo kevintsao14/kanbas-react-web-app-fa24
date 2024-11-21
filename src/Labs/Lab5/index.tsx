@@ -21,5 +21,6 @@ export default function Lab5() {
       <WorkingWithObjects />
       <WorkingWithArrays />
     </div>
+    // a5
   );
 }
