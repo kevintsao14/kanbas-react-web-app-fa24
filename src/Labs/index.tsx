@@ -9,6 +9,7 @@ import Lab5 from "./Lab5";
 import Lab6 from "./Lab6";
 import store from "./store";
 import { Provider } from "react-redux";
+
 export default function Labs() {
 
     return (
@@ -28,7 +29,6 @@ export default function Labs() {
                 <Route path="Lab6" element={<Lab6 />} />
                 
             </Routes>
-            
         </div>
         </Provider>
     );
