@@ -4,6 +4,11 @@ import * as db from "../../Database";
 import { addAssignment, updateAssignment, deleteAssignment } from "./reducer";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import * as client from "../client";
+import { create } from "domain";
+
+
+
 export default function AssignmentEditor({ assignment, assignments, setAssignment }: {
   setAssignment: (assignment: any) => void;
   assignment: any; assignments: any[];
@@ -11,6 +16,10 @@ export default function AssignmentEditor({ assignment, assignments, setAssignmen
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const dispatch = useDispatch();
   const { cid, aid } = useParams();
+  const createAssignment = async (assignment: any) => {
+    const newAssignment = await client.createAssignment(cid as string, assignment);
+    dispatch(addAssignment(newAssignment));
+  };
   return (
     <div id="wd-assignments-editor" className="p-3">
       <h5>Assignment Name</h5>
@@ -147,7 +156,8 @@ export default function AssignmentEditor({ assignment, assignments, setAssignmen
                     <button className="btn btn-danger"
                       onClick={() => {
                         if (cid === aid) {
-                          dispatch(addAssignment(assignment));
+                          // dispatch(addAssignment(assignment));
+                          createAssignment(assignment);
                         } else {
                           dispatch(updateAssignment(assignment));
                         }

@@ -5,16 +5,28 @@ import { FaSortDown } from "react-icons/fa6";
 import '../../styles.css';
 import AssignmentControls from "./AssignmentControls";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AssignmentButtons from "./AssignmentButtons";
+import { setAssignments, addAssignment, updateAssignment, deleteAssignment } from "./reducer";
+import { useState, useEffect } from "react";
+import * as client from "../client";
 
 export default function Assignments({ assignment, assignments, setAssignment }: {
     setAssignment: (assignment: any) => void;
     assignment: any; assignments: any[];
 }) {
+    const dispatch = useDispatch();
     const { cid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const fetchAssignments = async () => {
+        const assignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+      };
+      useEffect(() => {
+        fetchAssignments();
+      }, []);
+
     return (
         <div id="wd-assignments">
             <div className="wd-top-bar">
@@ -40,8 +52,8 @@ export default function Assignments({ assignment, assignments, setAssignment }: 
                 <span className="fw-bold">ASSIGNMENT</span>
                 <AssignmentControls /></div>
             <ul className="wd-lessons list-group rounded-0">
-                {assignments.
-                    filter((assignment: any) => assignment.course === cid)
+                {assignments
+                    // .filter((assignment: any) => assignment.course === cid)
                     .map((assignment: any) => (
                         <li className="wd-lesson list-group-item p-3 ps-1">
                             <div className="d-flex align-items-center">
