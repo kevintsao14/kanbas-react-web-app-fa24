@@ -21,6 +21,10 @@ export default function AssignmentEditor({ assignment, assignments, setAssignmen
     const newAssignment = await client.createAssignment(cid as string, assignment);
     dispatch(addAssignment(newAssignment));
   };
+  const saveAssignment = async (assignment: any) => {
+    const updatedAssignment = await assignmentClient.updateAssignment(assignment);
+    dispatch(updateAssignment(updatedAssignment));
+  }
   return (
     <div id="wd-assignments-editor" className="p-3">
       <h5>Assignment Name</h5>
@@ -160,7 +164,8 @@ export default function AssignmentEditor({ assignment, assignments, setAssignmen
                           // dispatch(addAssignment(assignment));
                           createAssignment(assignment);
                         } else {
-                          dispatch(updateAssignment(assignment));
+                          // dispatch(updateAssignment(assignment));
+                          saveAssignment(assignment);
                         }
                         window.location.href = `/#/Kanbas/Courses/${cid}/Assignments`;
                       }}>Save</button>
