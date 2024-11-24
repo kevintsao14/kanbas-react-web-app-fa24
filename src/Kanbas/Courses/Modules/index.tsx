@@ -4,15 +4,32 @@ import ModuleControlButtons from "./ModuleControlButtons";
 import { BsGripVertical } from "react-icons/bs";
 import { useParams } from "react-router";
 import * as db from "../../Database";
-import React, { useState } from "react";
-import { addModule, editModule, updateModule, deleteModule }
+import React, { useState, useEffect} from "react";
+import { setModules, addModule, editModule, updateModule, deleteModule }
     from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
+import * as coursesClient from "../client";
+
 export default function Modules() {
     const { cid } = useParams();
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: any) => state.modulesReducer);
     const dispatch = useDispatch();
+    const fetchModules = async () => {
+        const modules = await coursesClient.findModulesForCourse(cid as string);
+        dispatch(setModules(modules));
+      };
+      useEffect(() => {
+        fetchModules();
+      }, []);
+      const createModuleForCourse = async () => {
+        if (!cid) return;
+        const newModule = { name: moduleName, course: cid };
+        const module = await coursesClient.createModuleForCourse(cid, newModule);
+        dispatch(addModule(module));
+      };
+    
+    
     // export default function Modules() {
     //     const { cid } = useParams();
     //     const [modules, setModules] = useState<any[]>(db.modules);
@@ -37,14 +54,15 @@ export default function Modules() {
 
     return (
         <div>
-            <ModulesControls moduleName={moduleName} setModuleName={setModuleName}
-                addModule={() => {
-                    dispatch(addModule({ name: moduleName, course: cid }));
-                    setModuleName("");
-                }} /> <br /><br /> <br /> <br />
+            <ModulesControls moduleName={moduleName} setModuleName={setModuleName} addModule={createModuleForCourse} 
+                // addModule={() => {
+                //     dispatch(addModule({ name: moduleName, course: cid }));
+                //     setModuleName("");
+                // }} 
+                /> <br /><br /> <br /> <br />
             <ul id="wd-modules" className="list-group rounded-0">
                 {modules
-                    .filter((module: any) => module.course === cid)
+                    // .filter((module: any) => module.course === cid)
                     .map((module: any) => (
                         <li
                             key={module._id}
