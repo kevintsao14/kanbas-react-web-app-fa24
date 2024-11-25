@@ -20,7 +20,7 @@ export default function AssignmentEditor({ assignment, assignments, setAssignmen
   const createAssignment = async (assignment: any) => {
     const newAssignment = await client.createAssignment(cid as string, assignment);
     dispatch(addAssignment(newAssignment));
-  };
+  };  
   const saveAssignment = async (assignment: any) => {
     const updatedAssignment = await assignmentClient.updateAssignment(assignment);
     dispatch(updateAssignment(updatedAssignment));
