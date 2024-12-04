@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEnrollment, deleteEnrollment } from "./Enrollments/reducer";
 export default function Dashboard(
     { courses, course, setCourse, addNewCourse,
-        deleteCourse, updateCourse, enrolling, setEnrolling }: {
+        deleteCourse, updateCourse, enrolling, setEnrolling, updateEnrollment }: {
             courses: any[]; course: any; setCourse: (course: any) => void;
             addNewCourse: () => void; deleteCourse: (course: any) => void;
             updateCourse: () => void;
             enrolling: boolean; setEnrolling: (enrolling: boolean) => void;
+            updateEnrollment: (courseId: string, enrolled: boolean) => void;
         }) {
     const dispatch = useDispatch();
     // const [displayAll, setDisplayAll] = useState(false);
@@ -87,9 +88,10 @@ export default function Dashboard(
         <div id="wd-dashboard">
             <div className="d-flex">
                 <h1 id="wd-dashboard-title">Dashboard</h1>
-                <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary ms-auto" >
-                        {enrolling ? "My Courses" : "All Courses"}
-                    </button>
+                <button onClick={() => setEnrolling(!enrolling)}
+                    className="float-end btn btn-primary ms-auto" >
+                    {enrolling ? "My Courses" : "All Courses"}
+                </button>
                 {/* {currentUser.role === "STUDENT" && (
                     <button onClick={() => {
                         setDisplayAll(!displayAll);
@@ -157,7 +159,11 @@ export default function Dashboard(
                                         <div className="card-body">
                                             <h5 className="wd-dashboard-course-title card-title">
                                                 {enrolling && (
-                                                    <button className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                                                    <button onClick={(event) => {
+                                                        event.preventDefault();
+                                                        updateEnrollment(course._id, !course.enrolled);
+                                                    }}
+                                                        className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
                                                         {course.enrolled ? "Unenroll" : "Enroll"}
                                                     </button>
                                                 )}
