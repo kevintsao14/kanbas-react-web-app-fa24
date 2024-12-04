@@ -15,7 +15,6 @@ import * as courseClient from "./Courses/client";
 
 
 
-
 export default function Kanbas() {
     const [courses, setCourses] = useState<any[]>([]);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -24,10 +23,12 @@ export default function Kanbas() {
         startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
     });
     const addNewCourse = async () => {
-        const newCourse = await userClient.createCourse(course);
+        // const newCourse = await userClient.createCourse(course);
+        const newCourse = await courseClient.createCourse(course);
         setCourses([...courses, { ...course, _id: new Date().getTime().toString() }]);
     };
     const deleteCourse = async(courseId: any) => {
+        // const status = await courseClient.deleteCourse(courseId);
         const status = await courseClient.deleteCourse(courseId);
         setCourses(courses.filter((course: any) => course._id !== courseId));
     };
@@ -43,14 +44,24 @@ export default function Kanbas() {
             })
         );
     };
+    // const fetchCourses = async () => {
+    //     try {
+    //       const courses = await userClient.findMyCourses();
+    //       setCourses(courses);
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
     const fetchCourses = async () => {
         try {
-          const courses = await userClient.findMyCourses();
+          const courses = await courseClient.fetchAllCourses();
           setCourses(courses);
         } catch (error) {
           console.error(error);
         }
       };
+     
+
       useEffect(() => {
         fetchCourses();
       }, [currentUser]);
