@@ -188,7 +188,7 @@ export default function Dashboard(
                                                 className="btn btn-warning me-2 float-end" >
                                                 Edit
                                             </button>}
-                                            {currentUser.role === "STUDENT" &&
+                                            {/* {currentUser.role === "STUDENT" &&
                                                 enrollments.some(
                                                     (enrollment: any) =>
                                                         enrollment.user === currentUser._id &&
@@ -220,7 +220,7 @@ export default function Dashboard(
                                                     }}
                                                     className="btn btn-warning me-2 float-end" >
                                                     Enroll
-                                                </button>}
+                                                </button>} */}
 
                                             {/* <button onClick={(event) => {
                                                 event.preventDefault();
