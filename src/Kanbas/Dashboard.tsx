@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEnrollment, deleteEnrollment } from "./Enrollments/reducer";
 export default function Dashboard(
     { courses, course, setCourse, addNewCourse,
-        deleteCourse, updateCourse }: {
+        deleteCourse, updateCourse, enrolling, setEnrolling }: {
             courses: any[]; course: any; setCourse: (course: any) => void;
             addNewCourse: () => void; deleteCourse: (course: any) => void;
             updateCourse: () => void;
+            enrolling: boolean; setEnrolling: (enrolling: boolean) => void;
         }) {
     const dispatch = useDispatch();
-    const [displayAll, setDisplayAll] = useState(false);
+    // const [displayAll, setDisplayAll] = useState(false);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
     const [selectedCourses, setSelectedCourses] = useState<any[]>([]);
     const [displayCourses, setDisplayCourses] = useState<any[]>([]);
-    const display = () => {
-        fecthSelectedCourses();
-    };
+    // const display = () => {
+    //     fecthSelectedCourses();
+    // };
     const fecthSelectedCourses = () => {
         if (currentUser.role !== "STUDENT") {
             setSelectedCourses(courses);
@@ -39,9 +40,10 @@ export default function Dashboard(
     useEffect(() => {
         fecthSelectedCourses();
     }, [enrollments]);
-    useEffect(() => {
-        setDisplayCourses(displayAll || currentUser.role !== "STUDENT" ? courses : selectedCourses);
-    }, [selectedCourses, courses, displayAll]);
+
+    // useEffect(() => {
+    //     setDisplayCourses(displayAll || currentUser.role !== "STUDENT" ? courses : selectedCourses);
+    // }, [selectedCourses, courses, displayAll]);
 
 
     // { courses, course, setCourse, addNewCourse,
@@ -85,12 +87,15 @@ export default function Dashboard(
         <div id="wd-dashboard">
             <div className="d-flex">
                 <h1 id="wd-dashboard-title">Dashboard</h1>
-                {currentUser.role === "STUDENT" && (
+                <button onClick={() => setEnrolling(!enrolling)} className="float-end btn btn-primary ms-auto" >
+                        {enrolling ? "My Courses" : "All Courses"}
+                    </button>
+                {/* {currentUser.role === "STUDENT" && (
                     <button onClick={() => {
                         setDisplayAll(!displayAll);
                         display();
                     }} className="btn btn-primary ms-auto">Enrollments</button>
-                )}
+                )} */}
             </div> <hr />
             {currentUser.role === "FACULTY" && (<h5>New Course
                 <button className="btn btn-primary float-end"
@@ -127,7 +132,7 @@ export default function Dashboard(
             <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
             <div id="wd-dashboard-courses" className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
-                    {displayCourses
+                    {courses
                         // .filter((course) =>
                         //     enrollments.some(
                         //         (enrollment) =>
@@ -146,11 +151,16 @@ export default function Dashboard(
                                             height={160}
                                             alt={course.name}
                                             onError={(e) => {
-                                                e.currentTarget.src = "/images/reactjs.jpg"; 
+                                                e.currentTarget.src = "/images/reactjs.jpg";
                                             }}
                                         />
                                         <div className="card-body">
                                             <h5 className="wd-dashboard-course-title card-title">
+                                                {enrolling && (
+                                                    <button className={`btn ${course.enrolled ? "btn-danger" : "btn-success"} float-end`} >
+                                                        {course.enrolled ? "Unenroll" : "Enroll"}
+                                                    </button>
+                                                )}
                                                 {course.name} </h5>
                                             <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                                                 {course.description} </p>
